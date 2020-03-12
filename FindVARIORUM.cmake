@@ -23,7 +23,7 @@ find_path(VARIORUM_PREFIX
 
 find_library(VARIORUM_LIBRARIES
     # Pick the static library first for easier run-time linking.
-    NAMES libvariorum.so libvariorum.a variorum
+    NAMES libvariorum variorum
     HINTS ${VARIORUM_PREFIX}/lib
 )
 
