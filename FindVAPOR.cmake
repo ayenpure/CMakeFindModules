@@ -47,5 +47,3 @@ mark_as_advanced(
 
 set(VAPOR_INCLUDE_DIRS ${VAPOR_INCLUDE_DIR})
 set(VAPOR_LIBRARIES ${FLOW} ${COMMON} ${PARAMS} ${REMER} ${VDC} ${WASP})
-
-
