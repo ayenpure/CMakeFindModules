@@ -23,19 +23,13 @@ find_path(PAPI_PREFIX
 
 find_library(PAPI_LIBRARIES
     # Pick the static library first for easier run-time linking.
-    NAMES libpapi.so libpapi.a papi
-    HINTS ${PAPI_PREFIX}/lib ${HILTIDEPS}/lib
-)
-
-find_library(PFM_LIBRARIES
-    # Pick the static library first for easier run-time linking.
-    NAMES libpfm.so.4 libpfm.a pfm
-    HINTS ${PAPI_PREFIX}/lib ${HILTIDEPS}/lib
+    NAMES libpapi papi libpfm pfm
+    HINTS ${PAPI_PREFIX}/lib
 )
 
 find_path(PAPI_INCLUDE_DIRS
     NAMES papi.h
-    HINTS ${PAPI_PREFIX}/include ${HILTIDEPS}/include
+    HINTS ${PAPI_PREFIX}/include
 )
 
 include(FindPackageHandleStandardArgs)
@@ -45,7 +39,7 @@ find_package_handle_standard_args(PAPI DEFAULT_MSG
 )
 
 mark_as_advanced(
-    PAPI_PREFIX_DIRS
+    PAPI_PREFIX
     PAPI_LIBRARIES
     PAPI_INCLUDE_DIRS
 )
