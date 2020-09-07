@@ -18,28 +18,30 @@
 #  LIKWID_INCLUDE_DIRS       The location of LIKWID headers
 
 find_path(LIKWID_PREFIX
-    NAMES include/likwid.h
+    NAMES include bin lib
+    PATHS /usr/local/likwid
+#   DOC "Path to the root directory of the LIKWID installation"
 )
 
-find_library(LIKWID_LIBRARIES
-    # Pick the static library first for easier run-time linking.
-    NAMES liblikwid likwid
-    HINTS ${LIKWID_PREFIX}/lib
-)
-
-find_path(LIKWID_INCLUDE_DIRS
+find_path(LIKWID_INCLUDE_DIR
     NAMES likwid.h
     HINTS ${LIKWID_PREFIX}/include
+#    DOC "Path to the LIKWID include directory [should autocomplete given prefix]"
 )
+
+find_library(LIKWIDHW-LOC NAMES likwid-hwloc liblikwid-hwloc HINTS ${LIKWID_PREFIX}/lib)
+find_library(LIKWIDLUA    NAMES likwid-lua liblikwid-lua HINTS ${LIKWID_PREFIX}/lib)
+find_library(LIKWIDPIN    NAMES likwidpin liblikwidpin HINTS ${LIKWID_PREFIX}/lib)
+find_library(LIKWID       NAMES likwid  liblikwid HINTS ${LIKWID_PREFIX}/lib)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(LIKWID DEFAULT_MSG
-    LIKWID_LIBRARIES
-    LIKWID_INCLUDE_DIRS
+  LIKWIDHW-LOC LIKWIDLUA LIKWIDPIN LIKWID LIKWID_INCLUDE_DIR
 )
 
 mark_as_advanced(
-    LIKWID_PREFIX_DIRS
-    LIKWID_LIBRARIES
-    LIKWID_INCLUDE_DIRS
+    LIKWID_PREFIX FLOW COMMON PARAMS RENDER VDC WASP LIKWID_INCLUDE_DIR
 )
+
+set(LIKWID_INCLUDE_DIRS ${LIKWID_INCLUDE_DIR})
+set(LIKWID_LIBRARIES ${LIKWIDHW-LOC} ${LIKWIDLUA} ${LIKWIDPIN} ${LIKWID})
