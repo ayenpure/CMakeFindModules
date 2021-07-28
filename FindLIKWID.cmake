@@ -23,25 +23,29 @@ find_path(LIKWID_PREFIX
 #   DOC "Path to the root directory of the LIKWID installation"
 )
 
+message("Prefix: ${LIKWID_PREFIX}")
+
 find_path(LIKWID_INCLUDE_DIR
     NAMES likwid.h
     HINTS ${LIKWID_PREFIX}/include
 #    DOC "Path to the LIKWID include directory [should autocomplete given prefix]"
 )
 
-find_library(LIKWIDHW-LOC NAMES likwid-hwloc liblikwid-hwloc HINTS ${LIKWID_PREFIX}/lib)
-find_library(LIKWIDLUA    NAMES likwid-lua liblikwid-lua HINTS ${LIKWID_PREFIX}/lib)
-find_library(LIKWIDPIN    NAMES likwidpin liblikwidpin HINTS ${LIKWID_PREFIX}/lib)
-find_library(LIKWID       NAMES likwid  liblikwid HINTS ${LIKWID_PREFIX}/lib)
+message("Include: ${LIKWID_INCLUDE_DIR}")
+
+find_library(LKDHWLOC  NAMES likwid-hwloc liblikwid-hwloc HINTS ${LIKWID_PREFIX}/lib)
+find_library(LKDLUA    NAMES likwid-lua liblikwid-lua HINTS ${LIKWID_PREFIX}/lib)
+find_library(LKDPIN    NAMES likwidpin liblikwidpin HINTS ${LIKWID_PREFIX}/lib)
+find_library(LKD    NAMES likwid  liblikwid HINTS ${LIKWID_PREFIX}/lib)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(LIKWID DEFAULT_MSG
-  LIKWIDHW-LOC LIKWIDLUA LIKWIDPIN LIKWID LIKWID_INCLUDE_DIR
+  LKDHWLOC LKDLUA LKDPIN LKD
 )
 
 mark_as_advanced(
-    LIKWID_PREFIX FLOW COMMON PARAMS RENDER VDC WASP LIKWID_INCLUDE_DIR
+    LIKWID_PREFIX LIKWID_INCLUDE_DIR LKDHWLOC LKDLUA LKDPIN LKD
 )
 
 set(LIKWID_INCLUDE_DIRS ${LIKWID_INCLUDE_DIR})
-set(LIKWID_LIBRARIES ${LIKWIDHW-LOC} ${LIKWIDLUA} ${LIKWIDPIN} ${LIKWID})
+set(LIKWID_LIBRARIES ${LKDHWLOC} ${LKDLUA} ${LKDPIN} ${LKD})
