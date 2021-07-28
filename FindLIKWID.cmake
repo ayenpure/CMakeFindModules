@@ -26,8 +26,7 @@ find_path(LIKWID_PREFIX
 message("Prefix: ${LIKWID_PREFIX}")
 
 find_path(LIKWID_INCLUDE_DIR
-    NAMES likwid.h
-    HINTS ${LIKWID_PREFIX}/include
+    NAMES likwid.h HINTS ${LIKWID_PREFIX}/include
 #    DOC "Path to the LIKWID include directory [should autocomplete given prefix]"
 )
 
